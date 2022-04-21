@@ -7,6 +7,7 @@ import store from './store'
 import iView from 'iview'
 import i18n from '@/locale'
 import config from '@/config'
+import './permission'
 import './index.less'
 import '@/assets/icons/iconfont.css'
 

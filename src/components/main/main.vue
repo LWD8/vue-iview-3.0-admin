@@ -45,7 +45,6 @@ import Language from './components/language'
 import ErrorStore from './components/error-store'
 import { mapMutations, mapActions, mapGetters } from 'vuex'
 import { getNewTagList, routeEqual } from '@/libs/util'
-import routers from '@/router/routers'
 import minLogo from '@/assets/images/logo-min.jpg'
 import maxLogo from '@/assets/images/logo.jpg'
 import './main.less'
@@ -87,7 +86,9 @@ export default {
       return list
     },
     menuList () {
-      return this.$store.getters.menuList
+      const menus = this.$store.getters.menuList
+      const routes = menus.find(item => item.path === '/')
+      return (routes && routes.children) || []
     },
     local () {
       return this.$store.state.app.local
@@ -105,12 +106,10 @@ export default {
       'setTagNavList',
       'addTag',
       'setLocal',
-      'setHomeRoute',
       'closeTag'
     ]),
     ...mapActions([
-      'handleLogin',
-      'getUnreadMessageCount'
+      'handleLogin'
     ]),
     turnToPage (route) {
       let { name, params, query } = {}
@@ -166,7 +165,6 @@ export default {
      * @description 初始化设置面包屑导航和标签导航
      */
     this.setTagNavList()
-    this.setHomeRoute(routers)
     const { name, params, query, meta } = this.$route
     this.addTag({
       route: { name, params, query, meta }
@@ -174,14 +172,6 @@ export default {
     this.setBreadCrumb(this.$route)
     // 设置初始语言
     this.setLocal(this.$i18n.locale)
-    // 如果当前打开页面不在标签栏中，跳到homeName页
-    if (!this.tagNavList.find(item => item.name === this.$route.name)) {
-      this.$router.push({
-        name: this.$store.getters['ruleRouterName']
-      })
-    }
-    // 获取未读消息条数
-    this.getUnreadMessageCount()
   }
 }
 </script>

@@ -1,15 +1,10 @@
 <template>
-  <div>
-    系统
-  </div>
+  <div>系统</div>
 </template>
 
 <script>
-  export default {
-    
-  }
+export default {}
 </script>
 
 <style scoped>
-
 </style>

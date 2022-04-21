@@ -1,7 +1,6 @@
 <template>
   <div class="custom-bread-crumb">
     <Breadcrumb :style="{fontSize: `${fontSize}px`}">
-      <BreadcrumbItem>首页</BreadcrumbItem>
       <BreadcrumbItem v-for="item in list" :to="item.to" :key="`bread-crumb-${item.name}`">
         <common-icon style="margin-right: 4px;" :type="item.icon || ''"/>
         {{ showTitle(item) }}

@@ -17,7 +17,7 @@ import Main from '@/components/main'
  * }
  */
 
-const othersRouter = [
+export const constantRoutes = [
   {
     path: '/login',
     name: 'login',
@@ -53,7 +53,7 @@ const othersRouter = [
     meta: {
       hideInMenu: true
     },
-    component: () => import('@/view/error-page/401.vue')
+    component: () => import(/* webpackChunkName: "error" */ '@/view/error-page/401.vue')
   },
   {
     path: '/500',
@@ -61,42 +61,25 @@ const othersRouter = [
     meta: {
       hideInMenu: true
     },
-    component: () => import('@/view/error-page/500.vue')
-  },
-  {
-    path: '*',
-    name: 'error_404',
-    meta: {
-      hideInMenu: true
-    },
-    component: () => import('@/view/error-page/404.vue')
+    component: () => import(/* webpackChunkName: "error" */ '@/view/error-page/500.vue')
   }
 ]
 
-export const appRouters = [
-  {
-    path: '/system',
-    name: 'system',
-    redirect: '/system/index',
-    component: Main,
-    meta: {
-      title: '系统',
-      icon: 'md-home'
-    },
-    children: [
-      {
-        path: 'index',
-        name: 'system_index',
-        meta: {
-          title: '权限菜单'
-        },
-        component: () => import('@/view/system')
-      }
-    ]
-  }
-]
+// 前端未找到页面路由（固定不用改）
+export const notFoundRouter = {
+  path: '*',
+  redirect: '/404',
+  hidden: true
+}
 
-export default [
-    ...othersRouter,
-    ...appRouters
-]
+// 根级菜单
+export const rootRouter = {
+  key: '',
+  name: 'index',
+  path: '',
+  component: 'Main',
+  hidden: true,
+  meta: {
+    title: '首页'
+  }
+}
